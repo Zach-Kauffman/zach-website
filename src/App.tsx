@@ -12,23 +12,32 @@ function App() {
     if (index !== tabs.length) setSelected(index);
   }
 
-  const tabs: string[] = [
-    'content 1',
-    'content 2',
-    'content 3',
-    'content 4',
-    'content 5',
-    'content 6',
+  const tabs: [string, string][] = [
+    ['Resume', 'resume text here'],
+    ['Portfolio', 'portfolio here'],
+    ['Links', 'links here'],
+    ['content 4', 'content 4'],
+    ['content 5', 'content 5'],
+    ['content 6', 'content 6'],
   ];
+
+  const unselectedFolders = () => {
+    let i = -1;
+    return tabs.map((content, index) => {
+      if (index !== selected) {
+        i += 1;
+        return <Folder label={content[0]} location={i} index={index} onClick={handleClick}><></></Folder>
+      }
+    }
+    )
+  }
 
 
   return (
     <div style={{
     }}>
-      {tabs.map((content, index) => index !== selected && (
-        <Folder label={content} index={index} onClick={handleClick}><>poopy</></Folder>
-      ))}
-      <Folder label={tabs[selected]} index={tabs.length} onClick={handleClick}><>poopy</></Folder>
+      {unselectedFolders()}
+      <Folder label={tabs[selected][0]} location={selected} index={tabs.length} onClick={handleClick} isSelected><>{tabs[selected][1]}</></Folder>
     </div>
   )
 }
