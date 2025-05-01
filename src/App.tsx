@@ -26,7 +26,7 @@ function App() {
     return tabs.map((content, index) => {
       if (index !== selected) {
         i += 1;
-        return <Folder label={content[0]} location={i} index={index} onClick={handleClick}><></></Folder>
+        return <Folder label={content[0]} location={i} index={index} onClick={handleClick} />
       }
     }
     )

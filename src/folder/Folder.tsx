@@ -3,7 +3,7 @@ import { BORDER_COLOR, MANILLA } from "../theme";
 
 interface FolderProps {
     label: string;
-    children: React.ReactElement;
+    children?: React.ReactElement;
     index: number;
     location: number;
     onClick: (index: number) => void;
