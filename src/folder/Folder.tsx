@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { BORDER_COLOR, MANILLA } from '../theme';
 
 interface FolderProps {
@@ -10,7 +11,6 @@ interface FolderProps {
   isSelected?: boolean;
 }
 
-// Folder.tsx
 export const Folder = ({
   label,
   children,
