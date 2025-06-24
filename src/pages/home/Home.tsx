@@ -1,9 +1,9 @@
-import { Folder } from '../../components/folder/Folder';
 import '../../App.css';
 
 import { useState } from 'react';
-import { Resume } from '../../components/resume/Resume';
 
+import { Folder } from '../../components/folder/Folder';
+import { Resume } from '../../components/resume/Resume';
 
 function Home() {
   const [selected, setSelected] = useState<number>(0);
@@ -14,7 +14,7 @@ function Home() {
   };
 
   const tabs: [string, React.ReactElement][] = [
-    ['Resume', <Resume/>],
+    ['Resume', <Resume />],
     ['Portfolio', <></>],
     ['Links', <></>],
     ['content 4', <></>],
@@ -27,7 +27,9 @@ function Home() {
     return tabs.map((content, index) => {
       if (index !== selected) {
         i += 1;
-        return <Folder key={index} label={content[0]} location={i} index={index} onClick={handleClick} />;
+        return (
+          <Folder key={index} label={content[0]} location={i} index={index} onClick={handleClick} />
+        );
       }
     });
   };
