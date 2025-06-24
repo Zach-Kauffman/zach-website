@@ -18,7 +18,7 @@ function Home() {
         ['Home', <></>],
         ['Resume', <Resume />],
         ['Links', <></>],
-        ['Cardgame Calculator', <Calculator/>],
+        ['Cardgame Calculator', <Calculator />],
         ['content 5', <></>],
         ['content 6', <></>],
     ];
