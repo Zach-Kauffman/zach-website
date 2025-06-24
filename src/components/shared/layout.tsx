@@ -19,3 +19,7 @@ export const Col = (props: React.PropsWithChildren<Props>) => {
         </div>
     );
 };
+
+export const Grid = (props: React.PropsWithChildren<Props>) => {
+    return <div style={{ display: 'grid', ...props.style }}>{props.children}</div>;
+};

@@ -10,7 +10,6 @@ export function calculateOdds({
     iterations: number;
 }) {
     let successfulAttempts = 0;
-    // const hitsMap = {};
     for (let i = 0; i < iterations; i++) {
         // create array with all cards
         const deck = Array(deckSize).fill(0);
@@ -28,18 +27,8 @@ export function calculateOdds({
             }
             marker++;
         }
-
-        // draw cards
-        const drawn = [];
-        const used = new Set();
-        while (drawn.length < looks) {
-            const index = Math.floor(Math.random() * deckSize);
-            if (!used.has(index)) {
-                used.add(index);
-                drawn.push(deck[index]);
-            }
-        }
-
+        // look at the top `looks` number of cards in the deck
+        const drawn = deck.slice(0, looks);
         // check if all hit types seen
         const found = new Set(drawn);
         const expected = new Set(Array.from({ length: hits.length }, (_, i) => i + 1));
