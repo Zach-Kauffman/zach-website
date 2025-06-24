@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 
-import Calculator from './pages/calculator/Calculator';
+import Calculator from './pages/simulator/Simulator';
 import Home from './pages/home/Home';
 
 function App() {
