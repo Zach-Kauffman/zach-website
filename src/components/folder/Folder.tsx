@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BORDER_COLOR, MANILLA } from '../theme';
+import { BORDER_COLOR, MANILLA } from '../../theme';
 
 interface FolderProps {
   label: string;
