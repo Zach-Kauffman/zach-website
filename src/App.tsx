@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
-import Calculator from './pages/simulator/Simulator';
 import Home from './pages/home/Home';
+import Calculator from './pages/simulator/Simulator';
 
 function App() {
     return (

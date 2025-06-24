@@ -1,4 +1,5 @@
 import './simulator.css';
+
 import { useState } from 'react';
 
 import { Col, Grid, Row } from '../../components/shared/layout';
@@ -53,17 +54,27 @@ function Simulator() {
             <h1>Advanced Cardgame Simulator</h1>
             <p>Simulate odds of seeing 1 or more specific cards, given some parameters.</p>
             <p>By default, there are 1,000,000 iterations. Increase for more accuracy.</p>
-            <p>Note: Anything above 10e7 will take a <i>very</i> long time</p>
-            <hr/>
-            <Grid style={{
-                gridAutoFlow: 'row',
-                paddingTop: '10px'
-            }}>
+            <p>
+                Note: Anything above 10e7 will take a <i>very</i> long time
+            </p>
+            <hr />
+            <Grid
+                style={{
+                    gridAutoFlow: 'row',
+                    paddingTop: '10px',
+                }}
+            >
                 <label>Number of iterations to run.</label>
-                <select defaultValue={1000000} onChange={(e) => setIterations(parseInt(e.target.value))} style={{width: 'fit-content'}}>
-                    {Array.from({ length: 7 }, (_, idx) => Math.pow(10, idx + 3)).map((value, idx) => (
-                        <option value={value}>10e{idx + 3}</option>
-                    ))}
+                <select
+                    defaultValue={1000000}
+                    onChange={(e) => setIterations(parseInt(e.target.value))}
+                    style={{ width: 'fit-content' }}
+                >
+                    {Array.from({ length: 7 }, (_, idx) => Math.pow(10, idx + 3)).map(
+                        (value, idx) => (
+                            <option value={value}>10e{idx + 3}</option>
+                        ),
+                    )}
                 </select>
             </Grid>
             <Grid
@@ -137,7 +148,9 @@ function Simulator() {
                     </Grid>
                 ))}
             <Row>
-                <button disabled={loading} onClick={handleCalculateOdds}>Calculate odds</button>
+                <button disabled={loading} onClick={handleCalculateOdds}>
+                    Calculate odds
+                </button>
             </Row>
             {loading && <p>Calculating...</p>}
             {!!odds && (
