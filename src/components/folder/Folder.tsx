@@ -127,8 +127,6 @@ export const Folder = ({
             {tab()}
             <div
                 style={{
-                    padding: '2rem',
-                    paddingTop: '3rem',
                     borderTop: `4px solid ${BORDER_COLOR}`,
                 }}
             >

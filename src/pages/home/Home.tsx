@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import { Folder } from '../../components/folder/Folder';
 import { Resume } from '../../components/resume/Resume';
+import Calculator from '../calculator/Calculator';
 
 function Home() {
     const [selected, setSelected] = useState<number>(0);
@@ -14,10 +15,10 @@ function Home() {
     };
 
     const tabs: [string, React.ReactElement][] = [
+        ['Home', <></>],
         ['Resume', <Resume />],
-        ['Portfolio', <></>],
         ['Links', <></>],
-        ['content 4', <></>],
+        ['Cardgame Calculator', <Calculator/>],
         ['content 5', <></>],
         ['content 6', <></>],
     ];

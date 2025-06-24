@@ -37,19 +37,19 @@ function Calculator() {
         if (deckSize > 0 && looks > 0 && hits.filter((h) => h > 0).length === hits.length) {
             setLoading(true);
             const result: number = await new Promise((resolve) => {
+                // using a setTimeout with 0 forces async behavior and allows us to await the lengthy calculation
                 setTimeout(() => {
                     const res = calculateOdds({ deckSize, looks, hits, iterations: ITERATIONS });
                     resolve(res);
-                }, 0)
-            })
+                }, 0);
+            });
             setLoading(false);
             setOdds(result);
-            return;
         }
     };
 
     return (
-        <div style={{ width: '80vw', height: '100vh', paddingLeft: '50px', paddingTop: '50px' }}>
+        <div style={{ width: '80vw', height: '100vh', paddingLeft: '20px' }}>
             <h1>Advanced Cardgame Calculator</h1>
             <p>Calculate odds of seeing 1 or more specific cards given some parameters</p>
             <Grid
@@ -115,17 +115,13 @@ function Calculator() {
                                     type="number"
                                     value={hits[currRow * 5 + idx]}
                                     onChange={(e) =>
-                                        handleHitChange(
-                                            currRow * 5 + idx,
-                                            parseInt(e.target.value),
-                                        )
+                                        handleHitChange(currRow * 5 + idx, parseInt(e.target.value))
                                     }
                                 />
                             </Col>
                         ))}
                     </Grid>
                 ))}
-            <hr />
             <Row>
                 <button onClick={handleCalculateOdds}>Calculate odds</button>
             </Row>
@@ -135,7 +131,7 @@ function Calculator() {
                     {comboSize === 1
                         ? `Odds of seeing at least 1 hit in ${looks} looks: `
                         : `Odds of seeing at least one of each ${comboSize} cards in your combo: `}
-                    ~{Math.floor(odds * 10000)/100}%
+                    ~<b>{Math.floor(odds * 10000) / 100}%</b>
                 </p>
             )}
         </div>
