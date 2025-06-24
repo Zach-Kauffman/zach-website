@@ -1,19 +1,19 @@
 import './simulator.css';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { Col, Grid, Row } from '../../components/shared/layout';
-import { calculateOdds } from './utils';
 
 function Simulator() {
+    const workerRef = useRef<Worker | null>(null);
+
     const [deckSize, setDeckSize] = useState(60);
     const [looks, setLooks] = useState(7);
     const [comboSize, setComboSize] = useState(2);
     const [hits, setHits] = useState([4, 4]);
     const [odds, setOdds] = useState<number | undefined>(undefined);
     const [iterations, setIterations] = useState(1_000_000);
-
-    const [loading, setLoading] = useState(false);
+    const [progress, setProgress] = useState(-1);
 
     const hitRows = Math.ceil(hits.length / 5);
 
@@ -32,20 +32,33 @@ function Simulator() {
         setHits(newHits);
     };
 
-    const handleCalculateOdds = async () => {
-        setOdds(undefined);
-        // make sure no values are zero before proceeding to calculation
-        if (deckSize > 0 && looks > 0 && hits.filter((h) => h > 0).length === hits.length) {
-            setLoading(true);
-            const result: number = await new Promise((resolve) => {
-                // using a setTimeout with 0 forces async behavior and allows us to await the lengthy calculation
-                setTimeout(() => {
-                    const res = calculateOdds({ deckSize, looks, hits, iterations });
-                    resolve(res);
-                }, 0);
-            });
-            setLoading(false);
-            setOdds(result);
+    const handleStartSim = () => {
+        const worker = new Worker(new URL('./simWorker.ts', import.meta.url), {
+            type: 'module',
+        });
+        workerRef.current = worker;
+
+        worker.onmessage = (e) => {
+            const { progress, result, done } = e.data;
+            if (progress !== undefined) {
+                setProgress(progress);
+                setOdds(result);
+            }
+            if (done) {
+                setOdds(result);
+                setProgress(-1);
+                worker.terminate();
+            }
+        };
+
+        worker.postMessage({ deckSize, looks, hits, iterations });
+    };
+
+    const handleStopSim = () => {
+        if (workerRef.current) {
+            workerRef.current.terminate();
+            workerRef.current = null;
+            setProgress(-1);
         }
     };
 
@@ -55,7 +68,7 @@ function Simulator() {
             <p>Simulate odds of seeing 1 or more specific cards, given some parameters.</p>
             <p>By default, there are 1,000,000 iterations. Increase for more accuracy.</p>
             <p>
-                Note: Anything above 10e7 will take a <i>very</i> long time
+                Note: Anything above 10e7 will take a <i>very</i> long time.
             </p>
             <hr />
             <Grid
@@ -72,7 +85,9 @@ function Simulator() {
                 >
                     {Array.from({ length: 7 }, (_, idx) => Math.pow(10, idx + 3)).map(
                         (value, idx) => (
-                            <option value={value}>10e{idx + 3}</option>
+                            <option key={idx} value={value}>
+                                10e{idx + 3}
+                            </option>
                         ),
                     )}
                 </select>
@@ -123,6 +138,7 @@ function Simulator() {
                 .fill(0)
                 .map((_, currRow) => (
                     <Grid
+                        key={currRow}
                         style={{
                             gridGap: '10px',
                             gridAutoFlow: 'column',
@@ -147,12 +163,20 @@ function Simulator() {
                         ))}
                     </Grid>
                 ))}
-            <Row>
-                <button disabled={loading} onClick={handleCalculateOdds}>
-                    Calculate odds
+            <hr />
+            <Grid style={{ gridAutoFlow: 'column', gridGap: '10px' }}>
+                <button disabled={progress >= 0} onClick={handleStartSim}>
+                    {progress >= 0 ? 'Calculating... ' : 'Calculate odds'}
                 </button>
-            </Row>
-            {loading && <p>Calculating...</p>}
+                <button disabled={progress < 0} onClick={handleStopSim}>
+                    Stop simulation
+                </button>
+            </Grid>
+            {progress >= 0 && (
+                <p style={{ paddingTop: '10px' }}>
+                    {progress}/{iterations} games simulated
+                </p>
+            )}
             {!!odds && (
                 <p>
                     {comboSize === 1
