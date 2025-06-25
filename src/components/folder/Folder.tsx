@@ -37,7 +37,7 @@ export const Folder = ({
                     position: 'absolute',
                     left: '-9px',
                     width: '10px',
-                    height: '25.5px',
+                    height: '29.33px',
                     backgroundColor: BORDER_COLOR,
                     transform: 'skewX(-20deg)',
                     borderTopLeftRadius: '4px',
@@ -50,7 +50,7 @@ export const Folder = ({
                     left: '-7px',
                     bottom: '0px',
                     width: '20px',
-                    height: '20.5px',
+                    height: '24.5px',
                     backgroundColor: MANILLA,
                     transform: 'skewX(-20deg)',
                     borderTopLeftRadius: '4px',
@@ -67,6 +67,7 @@ export const Folder = ({
                     borderTop: `4px solid ${BORDER_COLOR}`,
                     borderTopLeftRadius: '6px',
                     borderTopRightRadius: '6px',
+                    borderBottom: `4px solid ${MANILLA}`
                 }}
             >
                 <p
@@ -82,7 +83,7 @@ export const Folder = ({
                     position: 'absolute',
                     right: '-9px',
                     width: '10px',
-                    height: '25.5px',
+                    height: '29.33px',
                     backgroundColor: BORDER_COLOR,
                     transform: 'skewX(20deg)',
                     borderTopRightRadius: '4px',
@@ -95,7 +96,7 @@ export const Folder = ({
                     right: '-7px',
                     bottom: '0px',
                     width: '20px',
-                    height: '20.5px',
+                    height: '24.5px',
                     backgroundColor: MANILLA,
                     transform: 'skewX(20deg)',
                     borderTopRightRadius: '4px',
