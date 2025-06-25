@@ -67,7 +67,7 @@ export const Folder = ({
                     borderTop: `4px solid ${BORDER_COLOR}`,
                     borderTopLeftRadius: '6px',
                     borderTopRightRadius: '6px',
-                    borderBottom: `4px solid ${MANILLA}`
+                    borderBottom: `4px solid ${MANILLA}`,
                 }}
             >
                 <p

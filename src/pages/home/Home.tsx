@@ -23,21 +23,36 @@ function Home() {
     ];
 
     const unselectedFolders = () => {
-        let i = -1;
-        return tabs.map((content, index) => {
+        const arr: React.ReactElement[] = [];
+        tabs.map((content, index) => {
             if (index !== selected) {
-                i += 1;
-                return (
+                arr.push(
                     <Folder
                         key={index}
                         label={content[0]}
-                        location={i}
+                        location={index}
                         index={index}
                         onClick={handleClick}
-                    />
+                    />,
                 );
             }
         });
+        return arr;
+        // let i = -1;
+        // return tabs.map((content, index) => {
+        //     if (index !== selected) {
+        //         i += 1;
+        //         return (
+        //             <Folder
+        //                 key={index}
+        //                 label={content[0]}
+        //                 location={i}
+        //                 index={index}
+        //                 onClick={handleClick}
+        //             />
+        //         );
+        //     }
+        // });
     };
 
     return (

@@ -1,5 +1,8 @@
 html,
-body,
+body {
+    font-family: Arial, sans-serif;
+    background-color: #c7d2fe;
+}
 #root {
     margin: 0;
     padding: 0;
